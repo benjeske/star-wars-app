@@ -1,6 +1,6 @@
 # star-wars-app
 
-# Setup instruction
+# Setup instructions
 - Clone repo locally
 - yarn install
 - expo start
