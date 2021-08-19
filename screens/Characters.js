@@ -43,7 +43,6 @@ export default function CharactersScreen({ navigation }) {
             .then((res) => {
                 setFilteredCharacters(res.data.results);
                 setCharacters(res.data.results);
-                console.log(res.data.results)
                 setLoading(false);
             })
             .catch((err) => {
@@ -76,7 +75,6 @@ export default function CharactersScreen({ navigation }) {
                 onPress={() => {
                     setSelectedCharacter(item);
                     setDetail(`Height: ${item.height}`);
-                    console.log(item)
                     navigation.navigate("Details")
                 }}
                 style={tailwind("w-96 bg-gray-800 p-5 border-2 border-green-900 rounded items-center justify-center my-2")}

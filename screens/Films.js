@@ -34,7 +34,6 @@ export default function Films({ navigation }) {
             })
             .then((res) => {
                 setCharacters(res.data.results);
-                console.log(res.data.results)
                 setLoading(false);
             })
             .catch((err) => {
@@ -47,7 +46,6 @@ export default function Films({ navigation }) {
             onPress={() => {
                 setSelectedCharacter(item);
                 setDetail(`${item.opening_crawl}`);
-                console.log(item)
                 navigation.navigate("Details")
             }}
             style={tailwind("w-96 bg-gray-800 p-5 border-2 border-green-900 rounded flex items-center justify-center my-2")}
