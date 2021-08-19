@@ -11,9 +11,9 @@ import { BASE_URL, STARSHIPS_URL } from "../utils/api";
 
 export default function Starships({ navigation }) {
     const [selectedCharacter, setSelectedCharacter] = useRecoilState(appCharacter);
-    const [characters, setCharacters] = useState([]);
+    const [starships, setStarships] = useState([]);
     const [search, setSearch] = useState('');
-    const [filteredCharacters, setFilteredCharacters] = useState([]);
+    const [filteredStarships, setFilteredStarships] = useState([]);
     const [loading, setLoading] = useState(null);
 
     const isFocused = useIsFocused();
@@ -34,7 +34,7 @@ export default function Starships({ navigation }) {
                 },
             })
             .then((res) => {
-                setCharacters(res.data.results);
+                setStarships(res.data.results);
                 setLoading(false);
             })
             .catch((err) => {
@@ -44,7 +44,7 @@ export default function Starships({ navigation }) {
 
     const handleSearch = (text) => {
         if (text) {
-            const newData = characters.filter(
+            const newData = starships.filter(
                 function (item) {
                     const itemData = item.name
                         ? item.name.toLowerCase()
@@ -53,10 +53,10 @@ export default function Starships({ navigation }) {
                     return itemData.indexOf(textData) > -1;
                 }
             );
-            setFilteredCharacters(newData);
+            setFilteredStarships(newData);
             setSearch(text);
         } else {
-            setFilteredCharacters(characters);
+            setFilteredStarships(starships);
             setSearch(text);
         }
     };
@@ -99,7 +99,7 @@ export default function Starships({ navigation }) {
                 <>
                     {renderHeader()}
                     <FlatList
-                        data={filteredCharacters}
+                        data={filteredStarships}
                         renderItem={renderItem}
                         keyExtractor={item => item?.name}
                     />

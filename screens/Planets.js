@@ -11,9 +11,9 @@ import { BASE_URL, PLANETS_URL } from "../utils/api";
 
 export default function Planets({ navigation }) {
     const [selectedCharacter, setSelectedCharacter] = useRecoilState(appCharacter);
-    const [characters, setCharacters] = useState([]);
+    const [planets, setPlanets] = useState([]);
     const [search, setSearch] = useState('');
-    const [filteredCharacters, setFilteredCharacters] = useState([])
+    const [filteredPlanets, setFilteredPlanets] = useState([])
     const [loading, setLoading] = useState(null);
 
     const isFocused = useIsFocused();
@@ -34,7 +34,7 @@ export default function Planets({ navigation }) {
                 },
             })
             .then((res) => {
-                setCharacters(res.data.results);
+                setPlanets(res.data.results);
                 setLoading(false);
             })
             .catch((err) => {
@@ -44,7 +44,7 @@ export default function Planets({ navigation }) {
 
     const handleSearch = (text) => {
         if (text) {
-            const newData = characters.filter(
+            const newData = planets.filter(
                 function (item) {
                     const itemData = item.name
                         ? item.name.toLowerCase()
@@ -53,10 +53,10 @@ export default function Planets({ navigation }) {
                     return itemData.indexOf(textData) > -1;
                 }
             );
-            setFilteredCharacters(newData);
+            setFilteredPlanets(newData);
             setSearch(text);
         } else {
-            setFilteredCharacters(characters);
+            setFilteredPlanets(planets);
             setSearch(text);
         }
     };
@@ -99,7 +99,7 @@ export default function Planets({ navigation }) {
                 <>
                     {renderHeader()}
                     <FlatList
-                        data={filteredCharacters}
+                        data={filteredPlanets}
                         renderItem={renderItem}
                         keyExtractor={item => item?.name}
                     />
