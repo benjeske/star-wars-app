@@ -35,6 +35,7 @@ export default function Starships({ navigation }) {
             })
             .then((res) => {
                 setStarships(res.data.results);
+                setFilteredStarships(res.data.results);
                 setLoading(false);
             })
             .catch((err) => {
