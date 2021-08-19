@@ -1,4 +1,6 @@
 # star-wars-app
 
-# Run dev locally
-expo start -c
+# Setup instruction
+> Clone repo locally
+> yarn install
+> expo start
