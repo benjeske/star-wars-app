@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useRecoilState } from "recoil"
-import { appCharacter } from "../recoil/atoms";
+import { appCharacter, appDetail } from "../recoil/atoms";
 import axios from "axios";
 import LoadingIndicator from "../components/UI/LoadingIndicator";
 import tailwind from "tailwind-rn";
@@ -11,6 +11,7 @@ import { BASE_URL, PLANETS_URL } from "../utils/api";
 
 export default function Planets({ navigation }) {
     const [selectedCharacter, setSelectedCharacter] = useRecoilState(appCharacter);
+    const [detail, setDetail] = useRecoilState(appDetail);
     const [planets, setPlanets] = useState([]);
     const [search, setSearch] = useState('');
     const [filteredPlanets, setFilteredPlanets] = useState([])
@@ -35,6 +36,7 @@ export default function Planets({ navigation }) {
             })
             .then((res) => {
                 setPlanets(res.data.results);
+                setFilteredPlanets(res.data.results);
                 setLoading(false);
             })
             .catch((err) => {
@@ -65,6 +67,7 @@ export default function Planets({ navigation }) {
         <TouchableOpacity
             onPress={() => {
                 setSelectedCharacter(item);
+                setDetail(`Gravity: ${item.gravity}`);
                 navigation.navigate("Details")
             }}
             style={tailwind("w-96 bg-gray-800 p-5 border-2 border-green-900 rounded flex items-center justify-center my-2")}
