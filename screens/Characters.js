@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useRecoilState } from "recoil"
-import { appCharacter } from "../recoil/atoms";
+import { appCharacter, appDetail } from "../recoil/atoms";
 import axios from "axios";
 import LoadingIndicator from "../components/UI/LoadingIndicator";
 import tailwind from "tailwind-rn";
@@ -17,6 +17,7 @@ import { BASE_URL, CHARACTER_URL } from "../utils/api";
 
 export default function CharactersScreen({ navigation }) {
     const [selectedCharacter, setSelectedCharacter] = useRecoilState(appCharacter);
+    const [detail, setDetail] = useRecoilState(appDetail);
     const [characters, setCharacters] = useState([]);
     const [search, setSearch] = useState('');
     const [filteredCharacters, setFilteredCharacters] = useState([])
@@ -74,6 +75,7 @@ export default function CharactersScreen({ navigation }) {
             <TouchableOpacity
                 onPress={() => {
                     setSelectedCharacter(item);
+                    setDetail(`Height: ${item.height}`);
                     console.log(item)
                     navigation.navigate("Details")
                 }}

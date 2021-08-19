@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, ScrollView, Text } from "react-native";
 import { useRecoilState } from "recoil";
-import { appCharacter } from "../recoil/atoms";
+import { appCharacter, appDetail } from "../recoil/atoms";
 import tailwind from "tailwind-rn";
 import LoadingIndicator from "../components/UI/LoadingIndicator";
 import Button from "../components/UI/Button";
 
 export default function Details({ navigation }) {
     const [selectedCharacter, setSelectedCharacter] = useRecoilState(appCharacter);
+    const [detail, setDetail] = useRecoilState(appDetail);
     const [loading, setLoading] = useState(false);
 
     const navigate = () => {
@@ -18,11 +19,11 @@ export default function Details({ navigation }) {
         return (
             <>
             {selectedCharacter ? (
-                <View style={tailwind("h-full flex justify-center items-center")}>
+                <ScrollView contentContainerStyle={tailwind("h-full flex justify-center items-center")}>
                     <Text style={tailwind("text-2xl text-white")}>{selectedCharacter?.name}</Text>
                     <Text style={tailwind("text-2xl text-white")}>{selectedCharacter?.title}</Text>
-                    
-                </View>
+                    <Text style={tailwind("text-lg text-white mt-5")}>{detail}</Text>
+                </ScrollView>
             ) : (
                 <View style={tailwind("h-full flex justify-center items-center")}>
                     <Text style={tailwind("text-2xl text-white text-center m-5")}>You haven't selected a character, planet, starship, or film.</Text>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView, Text, TouchableOpacity, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useRecoilState } from "recoil"
-import { appCharacter } from "../recoil/atoms";
+import { appCharacter, appDetail } from "../recoil/atoms";
 import axios from "axios";
 import LoadingIndicator from "../components/UI/LoadingIndicator";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,6 +12,7 @@ import { BASE_URL, FILMS_URL } from "../utils/api";
 export default function Films({ navigation }) {
     const [selectedCharacter, setSelectedCharacter] = useRecoilState(appCharacter);
     const [characters, setCharacters] = useState([]);
+    const [detail, setDetail] = useRecoilState(appDetail);
     const [loading, setLoading] = useState(null);
 
     const isFocused = useIsFocused();
@@ -45,6 +46,7 @@ export default function Films({ navigation }) {
         <TouchableOpacity
             onPress={() => {
                 setSelectedCharacter(item);
+                setDetail(`${item.opening_crawl}`);
                 console.log(item)
                 navigation.navigate("Details")
             }}
