@@ -1,21 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+import React, { useState } from "react";
+import { RecoilRoot } from "recoil";
+import MainNavigator from "./navigation/MainNavigator";
+import { NavigationContainer } from "@react-navigation/native";
+import { Asset } from 'expo-asset';
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [isReady, setIsReady] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  async function _cacheResourcesAsync() {
+    const images = [require('./assets/fortified.webp')];
+
+    const cacheImages = images.map(image => {
+      return Asset.fromModule(image).downloadAsync();
+    });
+    return Promise.all(cacheImages);
+  }
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={_cacheResourcesAsync}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
+    );
+  } else {
+
+    return (
+      <RecoilRoot>
+        <NavigationContainer>
+          <MainNavigator />
+        </NavigationContainer>
+      </RecoilRoot>
+    );
+  }
+}
