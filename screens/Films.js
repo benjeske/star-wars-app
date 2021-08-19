@@ -23,9 +23,9 @@ export default function Films({ navigation }) {
         }
     }, [])
 
-    const getFilms = () => {
+    const getFilms = async () => {
         setLoading(true);
-        axios
+        await axios
             .get(BASE_URL + FILMS_URL, {
                 headers: {
                     "Content-Type": "application/json",

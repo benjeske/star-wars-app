@@ -21,13 +21,13 @@ export default function Starships({ navigation }) {
     useEffect(() => {
         if (isFocused) {
             setLoading(true);
-            getPlanets();
+            getStarships();
         }
     }, [])
 
-    const getPlanets = () => {
+    const getStarships = async () => {
         setLoading(true);
-        axios
+        await axios
             .get(BASE_URL + STARSHIPS_URL, {
                 headers: {
                     "Content-Type": "application/json",

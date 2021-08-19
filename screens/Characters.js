@@ -31,9 +31,9 @@ export default function CharactersScreen({ navigation }) {
         }
     }, [])
 
-    const getCharacters = () => {
+    const getCharacters = async () => {
         setLoading(true);
-        axios
+        await axios
             .get(BASE_URL + CHARACTER_URL, {
                 headers: {
                     "Content-Type": "application/json",

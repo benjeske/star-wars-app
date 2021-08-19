@@ -25,9 +25,9 @@ export default function Planets({ navigation }) {
         }
     }, [])
 
-    const getPlanets = () => {
+    const getPlanets = async () => {
         setLoading(true);
-        axios
+        await axios
             .get(BASE_URL + PLANETS_URL, {
                 headers: {
                     "Content-Type": "application/json",
