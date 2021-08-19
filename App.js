@@ -10,7 +10,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false);
 
   async function _cacheResourcesAsync() {
-    const images = [require('./assets/fortified.webp')];
+    const images = [require('./assets/fortified.webp'), require('./assets/splash.png')];
 
     const cacheImages = images.map(image => {
       return Asset.fromModule(image).downloadAsync();
